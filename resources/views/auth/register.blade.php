@@ -5,14 +5,14 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form style="margin-bottom: auto "method="POST" action="{{ route('register') }}">
+        <form style="margin-bottom: auto"method="POST" action="{{ route('register') }}">
             @csrf
 
             <!-- Name -->
             <div>
                 <x-label for="name" :value="__('Name')" />
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required  />
             </div>
 
             <!-- Email Address -->
@@ -57,11 +57,12 @@
             <!-- terms -->
             <div class="mt-4">
                
-            <p>
-                <input  id="terms and conditions"  name="terms and conditions" type="checkbox" required>
-                check here if you agree for the terms and 
-            conditions of our website
-            </p>
+                <div class="block mt-4">
+                    <label for="terms and conditions" class="inline-flex items-center">
+                        <input id="terms and conditions" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="terms and conditions" required>
+                        <span class="ml-2 text-sm text-gray-600">{{ __('Check here if you agree for the terms and conditions of our website.') }}</span>
+                    </label>
+                </div>
                 
             </div>
 
