@@ -1,15 +1,11 @@
 <x-guest-layout>
     <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+        
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('register') }}">
+        <form style="margin-bottom: auto "method="POST" action="{{ route('register') }}">
             @csrf
 
             <!-- Name -->
@@ -54,6 +50,19 @@
                 <x-input id="password_confirmation" class="block mt-1 w-full"
                                 type="password"
                                 name="password_confirmation" required />
+
+                                
+            </div>
+
+            <!-- terms -->
+            <div class="mt-4">
+               
+            <p>
+                <input  id="terms and conditions"  name="terms and conditions" type="checkbox" required>
+                check here if you agree for the terms and 
+            conditions of our website
+            </p>
+                
             </div>
 
             <div class="flex items-center justify-end mt-4">
