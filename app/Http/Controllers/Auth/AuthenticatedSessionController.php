@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -26,8 +31,31 @@ class AuthenticatedSessionController extends Controller
      * @param  \App\Http\Requests\Auth\LoginRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(LoginRequest $request)
+    public function index()
     {
+        $users = User::get();
+        return view('dashboard',compact('users'));
+
+    }
+
+
+    public function store(LoginRequest $request)
+    {$request->validate([
+
+        'g-recaptcha-response'=>function($attribute,$value,$fail){
+            $secretkey='6LeROnohAAAAAILHcAaGEClChn1jeFD5U0H80wiH';
+            $response =$value;
+            $userIP = $_SERVER['REMOTE_ADDR'];
+            $url="https://www.google.com/recaptcha/api/siteverify?secret=$secretkey&response=$response&remoteip=$userIP";
+            $response= \file_get_contents($url);
+            $response=json_decode($response);
+            if(!$response->success){
+                $fail('reCaptcha should be checked');
+            }
+
+        }
+
+    ]);
         $request->authenticate();
 
         $request->session()->regenerate();

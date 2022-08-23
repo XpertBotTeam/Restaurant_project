@@ -38,6 +38,19 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'tel' => ['required','max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'g-recaptcha-response'=>function($attribute,$value,$fail){
+                $secretkey='6LeROnohAAAAAILHcAaGEClChn1jeFD5U0H80wiH';
+                $response =$value;
+                $userIP = $_SERVER['REMOTE_ADDR'];
+                $url="https://www.google.com/recaptcha/api/siteverify?secret=$secretkey&response=$response&remoteip=$userIP";
+                $response= \file_get_contents($url);
+                $response=json_decode($response);
+                if(!$response->success){
+                    $fail('reCaptcha should be checked');
+                }
+
+            }
+
         ]);
 
         $user = User::create([
