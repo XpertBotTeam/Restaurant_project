@@ -6,7 +6,7 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form style="margin-bottom: auto"method="POST" action="{{ route('register') }}">
+        <form style="margin-bottom: auto" method="POST" action="{{ route('register') }}">
             @csrf
 
             <!-- Name -->
@@ -68,8 +68,7 @@
                         <span class="ml-2 text-sm text-gray-600">{{ __('Check here if you agree for the terms and conditions of our website.') }}</span>
                     </label><br>
                     <div class="g-recaptcha" data-sitekey="6LeROnohAAAAAB0ONyrADAFuaz-srQx6j0quBx-s" 
-                    data-callback="recaptcha_callback"
-                    required></div>
+                    data-callback="recaptcha_callback" required></div>
                 </div>
                 
             </div>
