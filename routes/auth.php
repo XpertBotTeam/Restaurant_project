@@ -68,4 +68,8 @@ Route::post('delete/{id}',[UsersController::class,'delete'])->name('delete');
 Route::get('/users',[SearchController::class,'Search'])->name('Search');
 Route::get('/dashboard',[AuthenticatedSessionController::class, 'index']);
 
+Route::get('/log', function () {
+    return view('auth/loginsignup');
+});
+
 
